@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+    node:
+        container_name: ms-auth-rest
+        image: "node:14.17-buster"
+        user: root
+        volumes:
+        - ./:/var/www/html/
+        working_dir: /var/www/html
+        depends_on:
+        - mariadb
+        ports:
+        - "45834:45834"
+        command: sh -c "npm install && npm run start:local"
+    mariadb:
+        image: "mariadb:10.5"
+        container_name: inventario-mariadb
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=ms_auth
+            - MYSQL_USER=admin
+            - MYSQL_PASSWORD=root
+            - MYSQL_TCP_PORT=3306
+        ports:
+            - 3306:3306
+    rabbitmq:
+        image: "rabbitmq:3-management-alpine"
+        container_name: ms-rabbitmq
+        environment:
+            RABBITMQ_ERLANG_COOKIE: cookie.develop
+            RABBITMQ_DEFAULT_USER: guest
+            RABBITMQ_DEFAULT_PASS: guest
+            RABBITMQ_DEFAULT_VHOST: /
+        ports:
+            - 5672:5672
+            - 15672:15672
