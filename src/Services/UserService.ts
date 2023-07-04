@@ -9,14 +9,12 @@ import { Rol } from "src/Models/Entities/RolEntity";
 import { UserEntity } from "src/Models/Entities/UserEntity";
 import CreateUserRequest from "src/Models/Request/UserController/CreateUserRequest";
 import { CreateUserResponse } from "src/Models/Response/UserController/CreateUserResponse";
-import { EmailService } from "./EmailService";
 
 @Injectable()
 export class UserService {
     constructor(
         private readonly _userDao: UserDao,
         private readonly _rolDao: RolDao,
-        private readonly _emailService: EmailService
     ) { }
 
     async create(data: CreateUserRequest): Promise<CreateUserResponse> {
@@ -26,6 +24,7 @@ export class UserService {
         const user: UserEntity = await this._userDao.getUserByEmail(data.email);
         if (user) throw new HttpCustomException(`This username or email is already taken`, StatusCodeEnums.EMAIL_DUPLICATED);
         let newUser: UserEntity = new UserEntity();
+        newUser.setEmail(data.email);
         newUser.setEmailToVerificate(data.email);
         newUser.setPassword(await UtilityFunctions.getEncryptData(data.password));
         newUser.setRol(rol);
@@ -33,8 +32,7 @@ export class UserService {
         newUser.setUuid(uuidv4());
         newUser.setName(data.name);
         newUser.setLastName(data.lastName);
-        newUser = await this._userDao.save(newUser);
-        await this._emailService.sendEmail(newUser, 'TestSimple', 'hola', 'tetete');
+        await this._userDao.save(newUser);
         return new CreateUserResponse(newUser.getUuid());
     }
 

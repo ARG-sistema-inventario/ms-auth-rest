@@ -18,9 +18,11 @@ export default class UtilityFunctions {
     static async getEncryptCompare(data: string, encryptData: string): Promise<boolean> {
         try {
             const dataValidation = bcrypt.compareSync(data, encryptData);
+            console.log('dataValidation: ', dataValidation)
             if (!dataValidation) {
                 return false;
             }
+            console.log('dataValidation: ', dataValidation)
             return true;
         } catch (e) {
             throw new Error('Bcrypt compare error');

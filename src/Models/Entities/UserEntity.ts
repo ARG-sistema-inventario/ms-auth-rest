@@ -17,7 +17,7 @@ export class UserEntity extends GenericTable {
     @Column({ nullable: false, name: 'email_to_verificate', length: 255 })
     public emailToVerificate: string;
 
-    @Column({ type: 'datetime', nullable: true, name: 'verification_at' })
+    @Column({ nullable: true, name: 'verification_at' })
     public verificationAt: Date;
 
     @Column({ nullable: false, length: 255 })
@@ -32,7 +32,7 @@ export class UserEntity extends GenericTable {
     @Column({ default: false })
     public active: boolean;
 
-    @Column({ nullable: true, type: 'text', name: 'refresh_token' })
+    @Column({ nullable: true, name: 'refresh_token' })
     public refreshToken: string;
 
     @Column({ nullable: false, length: 255 })

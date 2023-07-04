@@ -12,11 +12,11 @@ export class UserDao {
     }
 
     async getUserByEmail(email: string): Promise<UserEntity> {
-        const user: UserEntity = await this._userRepository
+        console.log(`email: ${email}`)
+        const user = this._userRepository
             .createQueryBuilder('user')
             .leftJoinAndSelect('user.rol', 'rol')
             .where('user.email = :email', { email: email })
-            .andWhere('user.active = true')
             .getOne();
         return user;
     }
@@ -26,7 +26,6 @@ export class UserDao {
             .createQueryBuilder('user')
             .leftJoinAndSelect('user.rol', 'rol')
             .where('user.id = :id', { id: id })
-            .andWhere('user.active = 1')
             .getOne();
 
         return user;
