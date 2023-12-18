@@ -1,16 +1,15 @@
 export default class RabbitMessageRequest<T> {
-    retry: number | null;
     data: T;
+    type: string;
+    retry: number | null;
 
-    public constructor(data: T, retry: number | null) {
+    public constructor(data: T, type: string, retry: number | null) {
         this.data = data;
+        this.type = type;
         this.retry = retry;
     }
 
-    public static create<T>(
-        data: T,
-        retry: number | null,
-    ): RabbitMessageRequest<T> {
-        return new RabbitMessageRequest(data, retry);
+    public static create<T>(data: T, type: string, retry: number | null): RabbitMessageRequest<T> {
+        return new RabbitMessageRequest(data, type, retry);
     }
 }

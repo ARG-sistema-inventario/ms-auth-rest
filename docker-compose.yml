@@ -1,18 +1,6 @@
 version: '3'
 
 services:
-    node:
-        container_name: ms-auth-rest
-        image: "node:14.17-buster"
-        user: root
-        volumes:
-        - ./:/var/www/html/
-        working_dir: /var/www/html
-        depends_on:
-        - mariadb
-        ports:
-        - "45834:45834"
-        command: sh -c "npm install && npm run start:local"
     mariadb:
         image: "mariadb:10.5"
         container_name: inventario-mariadb

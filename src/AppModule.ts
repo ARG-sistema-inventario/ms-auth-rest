@@ -1,10 +1,10 @@
 import { Module } from "@nestjs/common";
-import { ApplicationModule } from "./Modules/ApplicationModule";
 import { ConfigModule, ConfigService } from "@nestjs/config";
+import { TypeOrmModule } from "@nestjs/typeorm";
 import { envFilePathConfiguration } from "./Configs/EnvFilePathConfig";
 import { nestEnvConfiguration } from "./Configs/NestEnvConfig";
-import { TypeOrmModule } from "@nestjs/typeorm";
 import { DBConfigInterface } from "./Configs/DbConfigInterface";
+import { ApplicationModule } from "./Modules/ApplicationModule";
 
 @Module({
     imports: [

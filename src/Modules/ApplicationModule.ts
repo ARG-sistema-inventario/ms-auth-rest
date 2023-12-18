@@ -1,9 +1,9 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { importAllFromRequireContext } from "src/Helpers/Utilities/RequireContext";
 import { JwtModule } from '@nestjs/jwt';
 import { RabbitMQConfig, RabbitMQModule } from "@golevelup/nestjs-rabbitmq";
 import { ConfigModule, ConfigService } from "@nestjs/config";
+import { importAllFromRequireContext } from "src/Helpers/Utilities/RequireContext";
 
 @Module({
     imports: [
